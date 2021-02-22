@@ -3,7 +3,7 @@
 # Deploy:
 #    kubectl apply -f deployment.yaml
 # See logs:
-#    kubectl logs deployment.yaml
+#    kubectl logs seccomp-ptrace-diagnose > report.txt
 # Tear down:
 #    kubectl delete -f deployment.yaml
 
