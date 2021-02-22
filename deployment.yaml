@@ -1,0 +1,32 @@
+# Minimal container that runs `strace ls` and prints its own sys capabilities
+#
+# Deploy:
+#    kubectl apply -f deployment.yaml
+# See logs:
+#    kubectl logs deployment.yaml
+# Tear down:
+#    kubectl delete -f deployment.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: seccomp-ptrace-diagnose
+spec:
+  containers:
+  - name: seccomp-ptrace-diagnose
+    image: quay.io/slukasik/seccomp-ptrace-diagnose:latest
+    imagePullPolicy: Always
+    securityContext:
+      capabilities:
+        add:
+        - SYS_PTRACE
+      privileged: false
+      readOnlyRootFilesystem: false
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - bash
+    args:
+    - -xc
+    - /bin/entrypoint.sh; tail -f /dev/null
+
