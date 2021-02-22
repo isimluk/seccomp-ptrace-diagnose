@@ -2,6 +2,8 @@
 
 set -x
 
-strace ls
+uname -a
+
+strace --seccomp-bpf ls /dev/null
 
 getpcaps $$
